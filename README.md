@@ -8,7 +8,7 @@ cd raspberry_headless
 
 chmod 777 install.sh
 
-This script installs some packages that I find useful for headless operation:
+This script installs some packages whichI find useful for headless operation:
 
 MONO
 
@@ -17,4 +17,13 @@ SAMBA
 APACHE
 
 PHP
+
+It installs some basic tools
+
+TCPDUMP
+
+I2C-TOOLS
+
+VLAN
+
 
