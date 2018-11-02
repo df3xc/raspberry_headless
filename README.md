@@ -8,13 +8,13 @@ cd raspberry_headless
 
 chmod 777 install.sh
 
-This script installs some packages whichI find useful for headless operation:
+This script installs some packages which I find useful for headless operation:
+ 
+MONO - the DOT.NET framework for GNU/Linux
 
-MONO
+SAMBA - mount Raspberry from Windows PC
 
-SAMBA
-
-APACHE
+APACHE - The WEB Server
 
 PHP
 
