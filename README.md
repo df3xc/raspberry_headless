@@ -4,9 +4,11 @@ Headless Operation of Raspberry
 
 git clone https://github.com/df3xc/raspberry_headless.git
 
-cd raspberry_headless
+cd raspberry_headles
 
 chmod 777 install.sh
+
+./install.sh
 
 This script installs some packages which I find useful for headless operation:
 
