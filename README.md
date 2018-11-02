@@ -17,8 +17,8 @@ This script installs some packages which I find useful for headless operation:
 
 It installs some basic tools
 
-*TCPDUMP
-*I2C-TOOLS
-*VLAN
+* TCPDUMP
+* I2C-TOOLS
+* VLAN
 
 
