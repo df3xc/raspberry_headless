@@ -13,7 +13,7 @@ This script installs some packages which I find useful for headless operation:
 * MONO - the DOT.NET framework for GNU/Linux
 * SAMBA - mount Raspberry from Windows PC
 * APACHE - The WEB Server
-*PHP
+* PHP
 
 It installs some basic tools
 
