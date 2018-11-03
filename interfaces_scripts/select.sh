@@ -3,7 +3,7 @@ echo " select interfaces : " $1
 
 if [ -z "$1" ]
 then
-   echo "missing argument"
+   echo " missing argument : static | ihone | ics"
    exit 1
 fi
 
