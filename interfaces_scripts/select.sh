@@ -1,38 +1,63 @@
 #!/bin/sh
+
+
+checkError() 
+{
+if [ $? -eq 0 ]; then
+       echo OK
+else
+       echo FAIL
+fi
+}
+
 echo " select interfaces : " $1
 
-if [ -z "$1" ]
-then
-   echo " missing argument : static | ihone | ics"
-   exit 1
-fi
-
 if [ $1 = 'static' ]
-then
-   ifconfig wlan0 down
+then   
+   ifdown wlan0 || true
+   ifconfig wlan0 down || true
    cp interfaces.static interfaces
    echo "nameserver 192.168.2.1" >/etc/resolv.conf
-   ifup wlan0
-   route add default gw 192.168.2.1 wlan0
+#   checkError
+   wait 2
+   echo "WLAN0 UP"
+   ifup wlan0 || true
+   wait 2
+#   checkError
+   route add default gw 192.168.2.1 wlan0 || true
    echo " done " $1
 fi
 
 if [ $1 = 'ics' ]
 then
-   ifconfig wlan0 down
    cp interfaces.ics interfaces
    echo "nameserver 192.168.137.1" >/etc/resolv.conf
-   ifup wlan0
-   route add default gw 192.168.137.1 wlan0
+#   checkError 
+   ifdown wlan0 || true
+   ifconfig wlan0 down || true
+   wait 2
+#   checkError
+   ifup wlan0 || true
+   wait 2
+   route add default gw 192.168.137.1 wlan0 || true
    echo " done " $1
 fi
 
+
 if [ $1 = 'iphone' ]
 then
-   ifconfig wlan0 down
    cp interfaces.iphone interfaces
    echo "nameserver 172.20.10.1" >/etc/resolv.conf
-   ifup wlan0
-   route add default gw 172.20.10.1 wlan0
+   ifdown wlan0 || true
+   ifconfig wlan0 down || true
+   checkError
+   wait 2
+   ifup wlan0 || true
+   checkError
+   wait 2
+   echo " adding route "
+   route add default gw 172.20.10.1 wlan0 || true 
    echo " done " $1
 fi
+
+ifconfig | grep 'inet '
