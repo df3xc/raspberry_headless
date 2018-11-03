@@ -1,5 +1,15 @@
 #!/bin/sh
 
+if [ -z "$1" ]
+then
+      echo "   "
+      echo "   "
+      echo "missing argument : static|iphone|ics"
+      echo "you need an addition preceeding dot: . ./select.sh"
+      echo "   "
+      exit 1
+fi
+
 
 checkError() 
 {
@@ -16,7 +26,7 @@ if [ $1 = 'static' ]
 then   
    ifdown wlan0 || true
    ifconfig wlan0 down || true
-   cp interfaces.static interfaces
+   cp interfaces.static /etc/network/interfaces
    echo "nameserver 192.168.2.1" >/etc/resolv.conf
 #   checkError
    wait 2
@@ -30,7 +40,7 @@ fi
 
 if [ $1 = 'ics' ]
 then
-   cp interfaces.ics interfaces
+   cp interfaces.ics /etc/network/interfaces
    echo "nameserver 192.168.137.1" >/etc/resolv.conf
 #   checkError 
    ifdown wlan0 || true
@@ -46,7 +56,7 @@ fi
 
 if [ $1 = 'iphone' ]
 then
-   cp interfaces.iphone interfaces
+   cp interfaces.iphone /etc/network/interfaces
    echo "nameserver 172.20.10.1" >/etc/resolv.conf
    ifdown wlan0 || true
    ifconfig wlan0 down || true
