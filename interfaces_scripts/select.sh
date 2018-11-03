@@ -1,6 +1,12 @@
 #!/bin/sh
 echo " select interfaces : " $1
 
+if [ -z "$1" ]
+then
+   echo "missing argument"
+   exit 1
+fi
+
 if [ $1 = 'static' ]
 then
    ifconfig wlan0 down
