@@ -1,5 +1,7 @@
 #!/bin/sh
 
+gw=192.168.2.1
+
 if [ -z "$1" ]
 then
       echo "   "
@@ -11,63 +13,44 @@ then
 fi
 
 
-checkError() 
-{
-if [ $? -eq 0 ]; then
-       echo OK
-else
-       echo FAIL
-fi
-}
+ifdown eth || true
+ifdown wlan0 || true
+wait 3
 
 echo " select interfaces : " $1
 
 if [ $1 = 'static' ]
-then   
-   ifdown wlan0 || true
-   ifconfig wlan0 down || true
-   cp interfaces.static /etc/network/interfaces
-   echo "nameserver 192.168.2.1" >/etc/resolv.conf
-#   checkError
-   wait 2
-   echo "WLAN0 UP"
-   ifup wlan0 || true
-   wait 2
-#   checkError
-   route add default gw 192.168.2.1 wlan0 || true
+then
+   cp ./interfaces.static /etc/network/interfaces
+   gw=192.168.2.1
+   echo "nameserver ${gw}" >/etc/resolv.conf
    echo " done " $1
 fi
 
 if [ $1 = 'ics' ]
 then
-   cp interfaces.ics /etc/network/interfaces
-   echo "nameserver 192.168.137.1" >/etc/resolv.conf
-#   checkError 
-   ifdown wlan0 || true
-   ifconfig wlan0 down || true
+   cp ./interfaces.ics /etc/network/interfaces
    wait 2
-#   checkError
-   ifup wlan0 || true
-   wait 2
-   route add default gw 192.168.137.1 wlan0 || true
+   gw=192.168.137.1
+   echo "nameserver ${gw}" >/etc/resolv.conf
    echo " done " $1
 fi
 
 
 if [ $1 = 'iphone' ]
 then
-   cp interfaces.iphone /etc/network/interfaces
-   echo "nameserver 172.20.10.1" >/etc/resolv.conf
-   ifdown wlan0 || true
-   ifconfig wlan0 down || true
-   checkError
+   cp ./interfaces.iphone /etc/network/interfaces
    wait 2
-   ifup wlan0 || true
-   checkError
-   wait 2
-   echo " adding route "
-   route add default gw 172.20.10.1 wlan0 || true 
+   gw=172.20.10.1
+   echo "nameserver ${gw}" >/etc/resolv.conf
    echo " done " $1
 fi
 
-ifconfig | grep 'inet '
+ifup eth0 || true
+ifup wlan0 || true
+
+wait 2
+#/etc/init.d/networking start
+route add default gw $gw wlan0 || true
+ifconfig
+ping -c 3 www.opel.de
