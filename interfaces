@@ -11,6 +11,15 @@ iface eth0 inet static
      netmask 255.255.255.0
      broadcast 192.168.1.255
      gateway 192.168.1.1
+     
+# VLAN ID 73     
+auto eth0.73
+
+iface eth0.73 inet static
+    address 160.48.199.30
+    network 160.48.199.0
+    netmask 255.255.255.0
+    broadcast 160.48.199.255     
 
 # WIFI Adapter
 auto wlan0
