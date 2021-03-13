@@ -30,4 +30,6 @@ apt-get install -y apache2
 echo "--------------------------------------"
 echo ' install PHP '
 echo "--------------------------------------"
-apt-get install -y php7.0 php7.0-gd php7.0-dev php-pear
+#apt-get install -y php7.0 php7.0-gd php7.0-dev php-pear
+apt-get install -y php
+
