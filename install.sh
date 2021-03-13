@@ -17,7 +17,8 @@ apt install -y i2c-tools
 echo "--------------------------------------"
 echo '  install MONO '
 echo "--------------------------------------"
-apt-get install -y mono-runtime
+#apt-get install -y mono-runtime
+apt-get install -y mono-complete
 echo "--------------------------------------"
 echo ' install SAMBA '
 echo "--------------------------------------"
